@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Paulius
+ * Date: 2019-06-23
+ * Time: 20:54
+ */
 
 namespace App\DataFixtures;
 
@@ -6,7 +12,7 @@ use App\Entity\RoadSection;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class AppFixtures extends Fixture
+class RoadsFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
@@ -16,8 +22,6 @@ class AppFixtures extends Fixture
             $lines = fgetcsv($csv);
 
             $line=explode(";",$lines[0]);
-
-            var_dump($line[1]);
 
             $road=new RoadSection();
 
@@ -33,7 +37,5 @@ class AppFixtures extends Fixture
 
         }
         fclose($csv);
-
-
     }
 }
