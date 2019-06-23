@@ -48,7 +48,7 @@ class DoneJobs
     private $unit_of;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float",nullable=true)
      */
     private $quantity;
 
@@ -69,7 +69,7 @@ class DoneJobs
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\RoadSection")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $section_id;
 
@@ -150,12 +150,12 @@ class DoneJobs
         return $this;
     }
 
-    public function getQuantity(): ?int
+    public function getQuantity(): ?float
     {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 

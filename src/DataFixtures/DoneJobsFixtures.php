@@ -26,10 +26,11 @@ class DoneJobsFixtures extends Fixture implements DependentFixtureInterface
 
             $line=explode(";",$lines[0]);
 
-            $jobbyid = $manager->getRepository(Job::class)->find($line[1]);
-            $roadid = $manager->getRepository(RoadSection::class)->find($line[10]);
+            $jobbyid = $manager->getRepository(Job::class)->findOneBy(['job_id' => $line[1]]);
+            $roadid = $manager->getRepository(RoadSection::class)->findOneBy(['section_id' => $line[10]]);
 
             $donejobs=new DoneJobs();
+
 
             $donejobs->setJobId($jobbyid);
             $donejobs->setJobName($line[2]);
@@ -37,7 +38,7 @@ class DoneJobsFixtures extends Fixture implements DependentFixtureInterface
             $donejobs->setRoadSectionBegin($line[4]);
             $donejobs->setRoadSectionEnd($line[5]);
             $donejobs->setUnitOf($line[6]);
-            $donejobs->setQuantity($line[7]);
+            $donejobs->setQuantity(floatval($line[7]));
             $donejobs->setDoneJobDate(\DateTime::createFromFormat('Y-m-d H:i', $line[8]));
             $donejobs->setNote($line[9]);
             $donejobs->setSectionId($roadid);
