@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Roads!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-2 mb-2">Jobs</h1>
+        {% if roads|length > 0 %}
+        <table id="myTable" class="table table-hover">
+            <thead>
+            <tr>
+                <th>Section ID</th>
+                <th>Section name</th>
+                <th>Unit ID</th>
+                <th>Section begin</th>
+                <th>Section end</th>
+                <th>Level</th>
+                <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for road in roads  %}
+                <tr class="">
+                    <td>{{ road.Sectionid }}</td>
+                    <td>{{ road.Sectionname }}</td>
+                    <td>{{ road.Unitid }}</td>
+                    <td>{{ road.Sectionbegin }}</td>
+                    <td>{{ road.Sectionend }}</td>
+                    <td>{{ road.Level }}</td>
+                </tr>
+            {% endfor %}
+            {% else %}
+                <h3>There are no roads :( </h3>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
