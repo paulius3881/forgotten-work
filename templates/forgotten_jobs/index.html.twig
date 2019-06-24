@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forgotten Jobs!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-2 mb-2">Forgotten Jobs </h1>
+        <h4 class="mt-2 mb-2">Date {{ date }} </h4>
+        {% if donejobs|length > 0 %}
+        <table id="myTable" class="table table-hover">
+            <thead>
+            <tr>
+                <th width="80" >Job ID</th>
+                <th>Job name</th>
+                <th>Road section</th>
+                <th>Road section begin</th>
+                <th>Road section end</th>
+                <th width="80">Unit of</th>
+                <th>Quantity</th>
+                <th width="100">Done job date</th>
+                <th>Note</th>
+                <th>Section ID</th>
+                <th>Road level</th>
+                <th>Done range</th>
+                <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for donejob in donejobs  %}
+                <tr class="">
+
+                    <td>{{ donejob['job_id'] }}</td>
+                    <td>{{ donejob['job_name']}}</td>
+                    <td>{{ donejob['road_section']}}</td>
+                    <td>{{ donejob['road_section_begin']}}</td>
+                    <td>{{ donejob['road_section_end']}}</td>
+                    <td>{{ donejob['unit_of']}}</td>
+                    <td>{{ donejob['quantity'] }}</td>
+                    <td>{{ donejob['done_job_date']|date('Y-m-d')}}</td>
+                    <td>{{ donejob['note']}}</td>
+                    <td> {{ donejob['section_id']|default('NULL') }}</td>
+                    <td>{{ donejob['road_level']}}</td>
+                    <td>{{ output[donejob['id']]}}</td>
+
+                </tr>
+            {% endfor %}
+            {% else %}
+                <h3>There are no forgotten jobs :( </h3>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
