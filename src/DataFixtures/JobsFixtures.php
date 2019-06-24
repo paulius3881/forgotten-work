@@ -32,7 +32,6 @@ class JobsFixtures extends Fixture
 
             $manager->persist($job);
             $manager->flush();
-
         }
         fclose($csv);
     }

@@ -26,7 +26,6 @@
             <tbody>
             {% for donejob in donejobs  %}
                 <tr class="">
-
                     <td>{{ donejob['job_id'] }}</td>
                     <td>{{ donejob['job_name']}}</td>
                     <td>{{ donejob['road_section']}}</td>
@@ -37,7 +36,6 @@
                     <td>{{ donejob['road_level']}}</td>
                     <td>{{ range[donejob['id']]}}</td>
                     <td>{{ left[donejob['id']]}}</td>
-
                 </tr>
             {% endfor %}
             {% else %}

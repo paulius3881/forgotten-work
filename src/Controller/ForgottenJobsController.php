@@ -13,7 +13,7 @@ class ForgottenJobsController extends AbstractController
      */
     public function index()
     {
-       // $date=date('Y-m-d', strtotime('-380 days'));//isveda darbus kurie nepriziureti per 380 dienu
+       // $date=date('Y-m-d', strtotime('-380 days'));//isveda darbus kurie nepriziureti per 380 dienu skirta patikrinimui
         $date=date('Y-m-d', strtotime('-30 days'));
 
         $em = $this->getDoctrine()->getManager();

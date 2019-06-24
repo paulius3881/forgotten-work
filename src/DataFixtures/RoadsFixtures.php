@@ -34,7 +34,6 @@ class RoadsFixtures extends Fixture
 
             $manager->persist($road);
             $manager->flush();
-
         }
         fclose($csv);
     }

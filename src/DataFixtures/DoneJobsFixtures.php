@@ -31,7 +31,6 @@ class DoneJobsFixtures extends Fixture implements DependentFixtureInterface
 
             $donejobs=new DoneJobs();
 
-
             $donejobs->setJobId($jobbyid);
             $donejobs->setJobName($line[2]);
             $donejobs->setRoadSection($line[3]);
@@ -46,7 +45,6 @@ class DoneJobsFixtures extends Fixture implements DependentFixtureInterface
 
             $manager->persist($donejobs);
             $manager->flush();
-
         }
         fclose($csv);
     }
