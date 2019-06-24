@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\RoadSection;
 
 class ForgottenJobsController extends AbstractController
 {
@@ -12,7 +13,8 @@ class ForgottenJobsController extends AbstractController
      */
     public function index()
     {
-        $date=date('Y-m-d', strtotime('-380 days'));//isveda darbus kurie nepriziureti per 380 dienu
+       // $date=date('Y-m-d', strtotime('-380 days'));//isveda darbus kurie nepriziureti per 380 dienu
+        $date=date('Y-m-d', strtotime('-30 days'));
 
         $em = $this->getDoctrine()->getManager();
         $RAW_QUERY = 'SELECT done_jobs.id, job.job_id, road_section.section_id, done_jobs.job_name, done_jobs.road_section,
@@ -25,25 +27,48 @@ class ForgottenJobsController extends AbstractController
 
         $forgottenjobs = $statement->fetchAll();
 
-        $output = array();
+        $em1 = $this->getDoctrine()->getManager();
+        $RAW_QUERY1 = "SELECT road_section.section_id, road_section.section_begin, road_section.section_end FROM road_section";
+        $statement1 = $em1->getConnection()->prepare($RAW_QUERY1);
+        $statement1->execute();
+
+        $roads = $statement1->fetchAll();
+
+        $range = array();
 
         foreach($forgottenjobs as $frgjob)
         {
-
-            $output[$frgjob['id']]=$frgjob['road_section_end']-$frgjob['road_section_begin'];
-
-
+            $range[$frgjob['id']]=$frgjob['road_section_end']-$frgjob['road_section_begin'];
         }
+        $left=array();
 
+        foreach ($forgottenjobs as $frgjob)
+        {
+         if($frgjob['section_id']!=null)
+         {
 
-
+            foreach ($roads as $road)
+            {
+                if($road['section_id']==$frgjob['section_id']){
+                    $left[$frgjob['id']]=$road['section_end']-$road['section_begin']-$range[$frgjob['id']];
+                    if($left[$frgjob['id']]<0){
+                        $left[$frgjob['id']]=0;
+                    }
+                }
+            }
+         }
+         else
+             {
+             $left[$frgjob['id']]=0;
+             }
+        }
 
         return $this->render('forgotten_jobs/index.html.twig', [
             'controller_name' => 'ForgottenJobsController',
             'donejobs'=> $forgottenjobs,
             'date'=>$date,
-            'output'=>$output,
-
+            'range'=>$range,
+            'left'=>$left,
         ]);
     }
 }
