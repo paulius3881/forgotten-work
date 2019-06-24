@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Done Jobs!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-2 mb-2">Done jobs</h1>
+        {% if donejobs|length > 0 %}
+        <table id="myTable" class="table table-hover">
+            <thead>
+            <tr>
+                <th width="80" >Job ID</th>
+                <th>Job name</th>
+                <th>Road section</th>
+                <th>Road section begin</th>
+                <th>Road section end</th>
+                <th width="80">Unit of</th>
+                <th>Quantity</th>
+                <th width="100">Done job date</th>
+                <th>Note</th>
+                <th>Section ID</th>
+                <th>Road level</th>
+                <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for donejob in donejobs  %}
+                <tr class="">
+                    <td>{{ donejob.Jobid.Jobid }}</td>
+                    <td>{{ donejob.Jobname}}</td>
+                    <td>{{ donejob.RoadSection}}</td>
+                    <td>{{ donejob.RoadSectionBegin}}</td>
+                    <td>{{ donejob.RoadSectionEnd}}</td>
+                    <td>{{ donejob.Unitof}}</td>
+                    <td>{{ donejob.Quantity }}</td>
+                    <td>{{ donejob.DoneJobDate|date('Y-m-d')}}</td>
+                    <td>{{ donejob.Note}}</td>
+                    <td> {{ donejob.Sectionid.Sectionid|default('NULL') }}</td>
+                    <td>{{ donejob.RoadLevel}}</td>
+
+                </tr>
+            {% endfor %}
+            {% else %}
+                <h3>There are no done jobs :( </h3>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
